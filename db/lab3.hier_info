@@ -1,0 +1,391 @@
+|lab3
+MSTL[0] <= top:inst.o_MST[0]
+MSTL[1] <= top:inst.o_MST[1]
+MSTL[2] <= top:inst.o_MST[2]
+clk => top:inst.i_clk
+resetbar => top:inst.i_resetbar
+pbs => top:inst.i_pbs
+sw1[0] => top:inst.i_sw1[0]
+sw1[1] => top:inst.i_sw1[1]
+sw1[2] => top:inst.i_sw1[2]
+sw1[3] => top:inst.i_sw1[3]
+sw2[0] => top:inst.i_sw2[0]
+sw2[1] => top:inst.i_sw2[1]
+sw2[2] => top:inst.i_sw2[2]
+sw2[3] => top:inst.i_sw2[3]
+SSTL[0] <= top:inst.o_SST[0]
+SSTL[1] <= top:inst.o_SST[1]
+SSTL[2] <= top:inst.o_SST[2]
+timer[0] <= top:inst.o_timer_out[0]
+timer[1] <= top:inst.o_timer_out[1]
+timer[2] <= top:inst.o_timer_out[2]
+timer[3] <= top:inst.o_timer_out[3]
+
+
+|lab3|top:inst
+i_clk => clk_div:clock_divider.clock_25Mhz
+i_resetbar => counter_4bit:Timer_m.rst
+i_resetbar => debouncer_2:debouncer.i_resetBar
+i_resetbar => fsm:fsm_controller.i_resetBar
+i_resetbar => counter_4bit:counter.rst
+i_pbs => debouncer_2:debouncer.i_raw
+i_sw1[0] => mux2to1_4:mux.i_a[0]
+i_sw1[1] => mux2to1_4:mux.i_a[1]
+i_sw1[2] => mux2to1_4:mux.i_a[2]
+i_sw1[3] => mux2to1_4:mux.i_a[3]
+i_sw2[0] => mux2to1_4:mux.i_b[0]
+i_sw2[1] => mux2to1_4:mux.i_b[1]
+i_sw2[2] => mux2to1_4:mux.i_b[2]
+i_sw2[3] => mux2to1_4:mux.i_b[3]
+o_MST[0] <= fsm:fsm_controller.o_MSTL[0]
+o_MST[1] <= fsm:fsm_controller.o_MSTL[1]
+o_MST[2] <= fsm:fsm_controller.o_MSTL[2]
+o_SST[0] <= fsm:fsm_controller.o_SSTL[0]
+o_SST[1] <= fsm:fsm_controller.o_SSTL[1]
+o_SST[2] <= fsm:fsm_controller.o_SSTL[2]
+o_timer_out[0] <= comb.DB_MAX_OUTPUT_PORT_TYPE
+o_timer_out[1] <= o_timer_out[1].DB_MAX_OUTPUT_PORT_TYPE
+o_timer_out[2] <= o_timer_out[2].DB_MAX_OUTPUT_PORT_TYPE
+o_timer_out[3] <= o_timer_out[3].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|clk_div:clock_divider
+clock_25Mhz => clock_1Hz~reg0.CLK
+clock_25Mhz => clock_10Hz~reg0.CLK
+clock_25Mhz => clock_100Hz~reg0.CLK
+clock_25Mhz => clock_1KHz~reg0.CLK
+clock_25Mhz => clock_10KHz~reg0.CLK
+clock_25Mhz => clock_100KHz~reg0.CLK
+clock_25Mhz => clock_1MHz~reg0.CLK
+clock_25Mhz => clock_1Mhz_int.CLK
+clock_25Mhz => count_1Mhz[0].CLK
+clock_25Mhz => count_1Mhz[1].CLK
+clock_25Mhz => count_1Mhz[2].CLK
+clock_25Mhz => count_1Mhz[3].CLK
+clock_25Mhz => count_1Mhz[4].CLK
+clock_1MHz <= clock_1MHz~reg0.DB_MAX_OUTPUT_PORT_TYPE
+clock_100KHz <= clock_100KHz~reg0.DB_MAX_OUTPUT_PORT_TYPE
+clock_10KHz <= clock_10KHz~reg0.DB_MAX_OUTPUT_PORT_TYPE
+clock_1KHz <= clock_1KHz~reg0.DB_MAX_OUTPUT_PORT_TYPE
+clock_100Hz <= clock_100Hz~reg0.DB_MAX_OUTPUT_PORT_TYPE
+clock_10Hz <= clock_10Hz~reg0.DB_MAX_OUTPUT_PORT_TYPE
+clock_1Hz <= clock_1Hz~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|counter_4bit:Timer_m
+clk => enARdFF_2:reg_A.i_clock
+clk => enARdFF_2:reg_B.i_clock
+clk => enARdFF_2:reg_C.i_clock
+clk => enARdFF_2:reg_D.i_clock
+rst => enARdFF_2:reg_A.i_resetBar
+rst => enARdFF_2:reg_B.i_resetBar
+rst => enARdFF_2:reg_C.i_resetBar
+rst => enARdFF_2:reg_D.i_resetBar
+en => int_da.IN1
+en => int_db.IN1
+en => int_dc.IN1
+en => int_dd.IN1
+count[0] <= enARdFF_2:reg_D.o_q
+count[1] <= enARdFF_2:reg_C.o_q
+count[2] <= enARdFF_2:reg_B.o_q
+count[3] <= enARdFF_2:reg_A.o_q
+
+
+|lab3|top:inst|counter_4bit:Timer_m|enARdFF_2:reg_A
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|counter_4bit:Timer_m|enARdFF_2:reg_B
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|counter_4bit:Timer_m|enARdFF_2:reg_C
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|counter_4bit:Timer_m|enARdFF_2:reg_D
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|timer_o:Timer_out
+i_input[0] => o_MST.IN0
+i_input[0] => o_SST.IN0
+i_input[1] => o_MST.IN1
+i_input[1] => o_SST.IN1
+i_input[2] => ~NO_FANOUT~
+i_input[3] => ~NO_FANOUT~
+o_MST <= o_MST.DB_MAX_OUTPUT_PORT_TYPE
+o_SST <= o_SST.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|debouncer_2:debouncer
+i_resetBar => enARdFF_2:first.i_resetBar
+i_resetBar => enARdFF_2:second.i_resetBar
+i_clock => enARdFF_2:first.i_clock
+i_clock => enARdFF_2:second.i_clock
+i_raw => int_d1Input.IN1
+i_raw => int_d2Input.IN1
+o_clean <= int_debouncedRaw.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|debouncer_2:debouncer|enARdFF_2:first
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|debouncer_2:debouncer|enARdFF_2:second
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|fsm:fsm_controller
+i_resetBar => enARdFF_2_rr:reg_A.i_resetBar
+i_resetBar => enARdFF_2:reg_B.i_resetBar
+i_resetBar => enARdFF_2:reg_C.i_resetBar
+i_resetBar => enARdFF_2:reg_D.i_resetBar
+i_clock => enARdFF_2_rr:reg_A.i_clock
+i_clock => enARdFF_2:reg_B.i_clock
+i_clock => enARdFF_2:reg_C.i_clock
+i_clock => enARdFF_2:reg_D.i_clock
+i_SSCS => int_Bn.IN1
+i_SSCS => int_An.IN1
+i_MSC => int_An.IN1
+i_MSC => int_Bn.IN1
+i_MSC => int_An.IN1
+i_MSC => int_An.IN1
+i_MST => int_Cn.IN1
+i_MST => int_Bn.IN1
+i_SSC => int_Dn.IN1
+i_SSC => int_Cn.IN1
+i_SST => int_An.IN1
+i_SST => int_Dn.IN1
+o_MSTL[0] <= enARdFF_2_rr:reg_A.o_q
+o_MSTL[1] <= enARdFF_2:reg_B.o_q
+o_MSTL[2] <= o_MSTL.DB_MAX_OUTPUT_PORT_TYPE
+o_SSTL[0] <= enARdFF_2:reg_C.o_q
+o_SSTL[1] <= enARdFF_2:reg_D.o_q
+o_SSTL[2] <= o_SSTL.DB_MAX_OUTPUT_PORT_TYPE
+o_set[0] <= o_set.DB_MAX_OUTPUT_PORT_TYPE
+o_set[1] <= o_set.DB_MAX_OUTPUT_PORT_TYPE
+o_set[2] <= <GND>
+o_set[3] <= <GND>
+o_reset <= o_reset.DB_MAX_OUTPUT_PORT_TYPE
+o_sw <= o_sw.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|fsm:fsm_controller|enARdFF_2_rr:reg_A
+i_resetBar => int_q.PRESET
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|fsm:fsm_controller|enARdFF_2:reg_B
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|fsm:fsm_controller|enARdFF_2:reg_C
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|fsm:fsm_controller|enARdFF_2:reg_D
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|fourBitComparator:cmp
+i_A[0] => oneBitComparator:b0.i_Ai
+i_A[1] => oneBitComparator:b1.i_Ai
+i_A[2] => oneBitComparator:b2.i_Ai
+i_A[3] => oneBitComparator:b3.i_Ai
+i_B[0] => oneBitComparator:b0.i_Bi
+i_B[1] => oneBitComparator:b1.i_Bi
+i_B[2] => oneBitComparator:b2.i_Bi
+i_B[3] => oneBitComparator:b3.i_Bi
+o_GT <= oneBitComparator:b0.o_GT
+o_LT <= oneBitComparator:b0.o_LT
+o_EQ <= EQ.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|fourBitComparator:cmp|oneBitComparator:b3
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|fourBitComparator:cmp|oneBitComparator:b2
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|fourBitComparator:cmp|oneBitComparator:b1
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|fourBitComparator:cmp|oneBitComparator:b0
+i_GTPrevious => int_GT2.IN0
+i_GTPrevious => int_GT1.IN0
+i_GTPrevious => int_LT2.IN0
+i_LTPrevious => int_LT2.IN1
+i_LTPrevious => int_GT1.IN1
+i_LTPrevious => int_GT2.IN1
+i_Ai => int_GT1.IN1
+i_Ai => int_LT1.IN1
+i_Bi => int_LT1.IN1
+i_Bi => int_GT1.IN1
+o_GT <= int_GT.DB_MAX_OUTPUT_PORT_TYPE
+o_LT <= int_LT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|counter_4bit:counter
+clk => enARdFF_2:reg_A.i_clock
+clk => enARdFF_2:reg_B.i_clock
+clk => enARdFF_2:reg_C.i_clock
+clk => enARdFF_2:reg_D.i_clock
+rst => enARdFF_2:reg_A.i_resetBar
+rst => enARdFF_2:reg_B.i_resetBar
+rst => enARdFF_2:reg_C.i_resetBar
+rst => enARdFF_2:reg_D.i_resetBar
+en => int_da.IN1
+en => int_db.IN1
+en => int_dc.IN1
+en => int_dd.IN1
+count[0] <= enARdFF_2:reg_D.o_q
+count[1] <= enARdFF_2:reg_C.o_q
+count[2] <= enARdFF_2:reg_B.o_q
+count[3] <= enARdFF_2:reg_A.o_q
+
+
+|lab3|top:inst|counter_4bit:counter|enARdFF_2:reg_A
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|counter_4bit:counter|enARdFF_2:reg_B
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|counter_4bit:counter|enARdFF_2:reg_C
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|counter_4bit:counter|enARdFF_2:reg_D
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|lab3|top:inst|mux2to1_4:mux
+i_S => o_O.IN0
+i_S => o_O.IN0
+i_S => o_O.IN0
+i_S => o_O.IN0
+i_S => o_O.IN0
+i_S => o_O.IN0
+i_S => o_O.IN0
+i_S => o_O.IN0
+i_a[0] => o_O.IN1
+i_a[1] => o_O.IN1
+i_a[2] => o_O.IN1
+i_a[3] => o_O.IN1
+i_b[0] => o_O.IN1
+i_b[1] => o_O.IN1
+i_b[2] => o_O.IN1
+i_b[3] => o_O.IN1
+o_O[0] <= o_O.DB_MAX_OUTPUT_PORT_TYPE
+o_O[1] <= o_O.DB_MAX_OUTPUT_PORT_TYPE
+o_O[2] <= o_O.DB_MAX_OUTPUT_PORT_TYPE
+o_O[3] <= o_O.DB_MAX_OUTPUT_PORT_TYPE
+
+
